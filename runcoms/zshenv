@@ -9,3 +9,7 @@
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+export ANDROID_HOME=/Users/daniel.klier/Library/Android/sdk
+export ANDROID_SDK_ROOT=$ANDROID_HOME
+export TALISMAN_HOME=~/.talisman/bin

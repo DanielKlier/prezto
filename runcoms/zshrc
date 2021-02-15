@@ -11,3 +11,76 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+  SPACESHIP_PROMPT_ORDER=(
+    time     #
+    vi_mode  # these sections will be
+    user     # before prompt char
+    host     #
+    dir
+    git
+    node
+    xcode
+    docker
+    line_sep
+    char
+  )
+
+  # DIR
+  SPACESHIP_DIR_PREFIX=''
+
+  # Set Spaceship ZSH as a prompt
+  autoload -U promptinit; promptinit
+  prompt spaceship
+
+###-tns-completion-start-###
+#if [ -f /Users/daniel.klier/.tnsrc ]; then 
+#    source /Users/daniel.klier/.tnsrc 
+#fi
+###-tns-completion-end-###
+
+autoload -U +X bashcompinit && bashcompinit
+
+source /Users/daniel.klier/Desktop/Projects/Porsche/Porsche-Messaging/myct-cloud-helpers/cloud-helpers.sh
+#source /Users/daniel.klier/Desktop/Projects/Porsche-Messaging/myct-cloud-helpers/cloud-helpers-completion.sh
+export PATH=/Users/daniel.klier/Library/Python/3.8/bin:$PATH
+export PATH=~/.bin:$PATH
+
+source ~/.zshalias
+
+kcdebug() { kubectl run -i --rm --tty debug --image=busybox --restart=Never -- sh }
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/daniel.klier/Desktop/Projects/Porsche/Inbox/mymessagng-inbox-backend/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/daniel.klier/Desktop/Projects/Porsche/Inbox/mymessagng-inbox-backend/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/daniel.klier/Desktop/Projects/Porsche/Inbox/mymessagng-inbox-backend/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/daniel.klier/Desktop/Projects/Porsche/Inbox/mymessagng-inbox-backend/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/daniel.klier/Desktop/Projects/Porsche/Inbox/mymessagng-inbox-backend/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/daniel.klier/Desktop/Projects/Porsche/Inbox/mymessagng-inbox-backend/node_modules/tabtab/.completions/slss.zsh
+export PATH="$HOME/.npm/bin:$PATH"
+
+# add Android platform-tools to path
+export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if test "$TERM_PROGRAM" = vscode; then
+	# Use vscode as the editor for things like Git when run from within vscode's integrated terminal
+	export EDITOR="code -w"
+fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+# Add gem directory to path
+source ~/.rvm/scripts/rvm
+
+get-kube-token () {
+  local local_user=$1
+  kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep $local_user | awk '{print $1}')|awk '/token:/{print $2}'
+}
