@@ -1,0 +1,5 @@
+fileignoreconfig:
+- filename: runcoms/zshenv
+  checksum: 9cad0552c3776f1951f2613dddbef937df2b3cac9339753b0a93aead17871981
+- filename: runcoms/zshrc
+  checksum: 60e6032becdb99c2590cc29f663eddf4613b47e6acc47983381b69e6a4522fe3
